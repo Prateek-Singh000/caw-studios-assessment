@@ -1,0 +1,8 @@
+[INFO] 2026-07-20T10:00:01 User 921 login success
+[INFO] 2026-07-20T10:00:02 Payment processed for User 921
+[WARN] 2026-07-20T10:00:05 High latency on database connection
+[INFO] 2026-07-20T10:00:08 User 404 login success
+[ERROR] 2026-07-20T10:00:10 Payment failed for User 404: Gateway Timeout
+[INFO] 2026-07-20T10:00:12 User 102 login success
+[INFO] 2026-07-20T10:00:15 Payment processed for User 102
+[ERROR] 2026-07-20T10:00:18 Payment failed for User 881: Invalid CVV

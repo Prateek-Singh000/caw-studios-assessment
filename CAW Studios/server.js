@@ -1,10 +1,14 @@
-const express = require('express');
-const app = express();
-const port = 3000;
+const config = require("./src/config.js");
 
-app.get('/live', (req, res) => res.status(200).send('OK'));
-app.get('/ready', (req, res) => res.status(200).send('OK'));
+console.log(
+  JSON.stringify({
+    message: "Service starting",
+    environment: config.NODE_ENV,
+    port: config.PORT,
+    log_level: config.LOG_LEVEL,
+    // NOTE: We DO NOT log DATABASE_URL or JWT_SECRET
+  })
+);
 
-app.listen(port, () => {
-  console.log(`API Gateway listening on port ${port}`);
-});
+// Simulate app starting
+console.log(`Server listening on port ${config.PORT}`);
