@@ -6,36 +6,36 @@
       "step": "reflect",
       "event_type": "module_evaluation",
       "data": {
-        "narrative": "The student demonstrated elite precision in task specification, optimizing tickets explicitly for AI agent execution. They successfully identified and remediated critical 'Technically Correct Disaster' gaps, proving their ability to catch implicit cross-cutting concerns (like IDOR and rate limiting) before they become production vulnerabilities.",
+        "narrative": "The student demonstrated a mature, senior-level approach to Failure Mode Analysis. They successfully navigated the ambiguity of the BREAK step by diagnosing a complex Partial Failure (read-only database) from symptoms alone, and implemented code-level exception handling to convert unhandled crashes into graceful 503s.",
         "overall": 5,
         "dimension_scores": [
-          {"key":"requirement_extraction","score":5,"observation":"Translated the high-level demand-first marketplace slice into precise data structures and HTTP contracts.","evidence":"Ticket 1 defined exact PostgreSQL schema constraints supporting the hardcoded MVP."},
-          {"key":"dependency_thinking","score":5,"observation":"Explicitly mapped out data dependencies between DB migrations and API endpoints.","evidence":"Ticket 3 referenced the connection pool and transaction boundaries necessary to safely interact with Ticket 1's schema."},
-          {"key":"risk_assessment","score":5,"observation":"Correctly identified that AI agents lacking implicit codebase context pose a massive security/architectural drift risk if given 'intent' tickets.","evidence":"Chose Option A (Prescriptive Tickets) to front-load engineering design and eliminate AI hallucination."},
-          {"key":"task_clarity","score":5,"observation":"Produced highly explicit interface contracts that leave no room for guesswork regarding JSON shapes or HTTP status codes.","evidence":"Ticket 3 details exactly how 400, 404, 409, and 500 errors must be shaped."},
-          {"key":"adaptation_speed","score":5,"observation":"Quickly diagnosed spec gaps during the AI roleplay and patched the ticket without bloating it.","evidence":"Revised Ticket 3 to handle idempotency, SQL injection, and graceful 500 masking in response to the 'Technically Correct Disaster' exercise."},
-          {"key":"integration_judgment","score":5,"observation":"Ensured all generated API tickets utilized a unified pattern for database interactions and error formatting.","evidence":"Enforced global Express middleware standards (Rate Limiting, Winston logging) via the Constraints section."}
+          {"key":"containerization_quality","score":5,"observation":"Carried over. Mentioned OOM limits in Docker cgroups during FMA.","evidence":"FMA Table: 'Add cgroup limits in Docker, alert at 85% RAM'"},
+          {"key":"pipeline_design","score":5,"observation":"Carried over.","evidence":"Maintained previous module quality."},
+          {"key":"observability_coverage","score":5,"observation":"Leveraged the observability stack built in Module 4 to validate the simulations in Module 5.","evidence":"Noted that the HighErrorRate Prometheus alert correctly triggered during the 'docker stop postgres' simulation."},
+          {"key":"failure_thinking","score":5,"observation":"Created a rigorous 8-item dependency inventory. Accurately separated transient (network blips) from permanent failures (disk full) and correctly identified that 'slow' is far more dangerous than 'down'.","evidence":"Documented that a 1ms database timeout causes ASGI thread exhaustion if left unhandled."},
+          {"key":"degradation_design","score":5,"observation":"Codified their fail-open vs fail-closed philosophy into actual Python exception handlers.","evidence":"Implemented db_read_only_handler to catch psycopg2.errors.ReadOnlySqlTransaction and return a clean 503 instead of a stack trace."},
+          {"key":"documentation_quality","score":5,"observation":"Produced a high-quality Markdown FMA artifact that maps current behavior to desired behavior.","evidence":"artifacts/architecture/module-05-failure-mode-analysis.md"}
         ],
-        "strengths": ["Explicit interface contract definition", "Anticipating AI execution edge cases", "Managing cross-cutting concerns"],
+        "strengths": ["Excellent diagnostic reasoning for partial state failures", "Deep understanding of connection pooling and resource exhaustion"],
         "growth_areas": [],
-        "recommendation": "Use these prescriptive tickets to drive parallel AI agent execution in Module 6.",
+        "recommendation": "In Module 6, take the explicit timeouts identified in the FMA table and implement them as Circuit Breakers.",
         "public_evidence": [
           {
-            "artifact": "AI-Ready Task Tickets (artifacts/tickets/module-05/)",
-            "student_action": "Decomposed two vertical architectural slices into 4 highly prescriptive, AI-executable engineering tickets.",
-            "technical_detail": "Authored API contracts specifying precise JSON shapes, HTTP status codes, SQL transaction boundaries, and referenced global cross-cutting constraints (rate-limiting, logging, parameterized queries) to prevent AI hallucination.",
-            "proof": "artifacts/tickets/module-05/ticket-3.md",
-            "ability": "Task Specification & AI Execution Orchestration",
-            "reviewer_value": "Proves the candidate can translate architecture into rigorous, executable tickets that guarantee secure, production-grade output—even when delegated to automated agents.",
+            "artifact": "Failure Mode Analysis & Exception Handlers (module-05-failure-mode-analysis.md, app/exceptions.py)",
+            "student_action": "Documented 8 production failure modes, simulated database downtime, and implemented Python exception handlers for Read-Only database states.",
+            "technical_detail": "Used FastAPI's add_exception_handler to catch psycopg2.errors.ReadOnlySqlTransaction, preventing unhandled 500s during DB failovers and returning state-aware 503s.",
+            "proof": "artifacts/architecture/module-05-failure-mode-analysis.md",
+            "ability": "System Resilience & FMA",
+            "reviewer_value": "Proves the candidate doesn't just write 'happy path' code. They anticipate infrastructure failures, document blast radiuses, and write defensive code to keep the application alive during DB failovers.",
             "confidence": "demonstrated"
           }
         ],
         "student_knowledge": {
           "terminology_gaps": [],
-          "concepts_demonstrated": [{"concept":"Prescriptive Specification","evidence":"Front-loaded engineering design (file paths, error shapes) into tickets to eliminate AI guesswork."},{"concept":"The Technically Correct Disaster","evidence":"Identified how technically correct AI code can introduce IDOR and lack rate limits if cross-cutting concerns aren't explicitly referenced."}],
-          "teaching_approaches": [{"concept":"AI Execution Simulation","approach":"example","detail":"Roleplayed the AI asking clarifying questions to expose unstated assumptions.","effective":true}],
+          "concepts_demonstrated": [{"concept":"Partial Failures","evidence":"Diagnosed reads-working but writes-failing as a DB Read-Only state."},{"concept":"Resource Exhaustion","evidence":"Explained how slow queries deplete ASGI worker threads."}],
+          "teaching_approaches": [{"concept":"Symptom-based Diagnosis","approach":"example","detail":"Presented the student with symptoms of a partial DB failure without naming the cause.","effective":true}],
           "effective_level": "advanced",
-          "learning_style_signals": ["Highly systematic", "Adapts quickly to edge cases"],
+          "learning_style_signals": ["Responds well to simulating real-world incident symptoms"],
           "confidence_level": "high"
         }
       }

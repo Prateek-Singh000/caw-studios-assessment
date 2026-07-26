@@ -1,0 +1,28 @@
+groups:
+- name: url-shortener-alerts
+  rules:
+  - alert: HighErrorRate
+    expr: rate(http_requests_total{status=~"5.."}[5m]) / rate(http_requests_total[5m]) > 0.05
+    for: 2m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Error rate exceeds 5%"
+      description: "The service has an error rate of over 5% for the last 5 minutes."
+
+  - alert: HighLatency
+    expr: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m])) > 2
+    for: 3m
+    labels:
+      severity: warning
+    annotations:
+      summary: "95th percentile latency exceeds 2 seconds"
+
+  - alert: ServiceDown
+    expr: up == 0
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Service is down"
+      description: "The Prometheus scraper cannot reach the /metrics endpoint."
