@@ -1,0 +1,7 @@
+### BLOCKED REQUIREMENTS & DECISION PENDING
+*   **Requirement [Cancellations]:** "Users can cancel bookings with provider policy applied." -> **BLOCKED**
+    *   **Issue:** Contradiction between provider-autonomy (Para 2) and mandatory 24h platform rule (Para 1 updated).
+    *   **Proposed Options:** 
+        1. Universal Platform Standard (Full refund < 24h).
+        2. Provider-defined policy with Platform "Global Floor" (min protection).
+    *   **Cascading Impacts:** Payment flow (needs refund trigger), Provider Dashboard (needs UI to set/display policy), Booking confirmation logic (must show terms).
