@@ -1,0 +1,43 @@
+{
+  "nonce": "module-05-complete",
+  "events": [
+    {
+      "module": 5,
+      "step": "reflect",
+      "event_type": "module_evaluation",
+      "data": {
+        "narrative": "The student implemented production-grade error handling and structured logging, effectively closing information disclosure vulnerabilities. They demonstrated strong security awareness by identifying and patching a bug where a global exception handler bypassed middleware redaction, leaking secrets into application logs.",
+        "overall": 5,
+        "dimension_scores": [
+          {"key":"tradeoff_reasoning","score":5,"observation":"Articulated why graceful degradation is preferred for the redirect path, ensuring the core product value remains available during partial system failures.","evidence":"Chose Option B because the core utility of a URL shortener requires high availability for redirects."},
+          {"key":"debugging_methodology","score":5,"observation":"Used reproducible cURL tests to force failures and tail logs, proving the existence of the leak and verifying the subsequent patch.","evidence":"Injected an exception to force a 500 crash, observed the X-API-Key leak in the terminal output, patched the exception handler, and re-ran the test to prove redaction."},
+          {"key":"security_awareness","score":5,"observation":"Understood that logging infrastructure is a critical threat vector and that stack traces leak internal architectural blueprints.","evidence":"Abstracted redaction logic into get_safe_headers() to ensure consistency across both healthy request logs and unhandled exception logs."},
+          {"key":"production_thinking","score":4,"observation":"Implemented structured logging with unique request IDs and latency tracking, fulfilling the exact telemetry requirements needed by on-call engineers.","evidence":"Added UUID generation and latency timing to the middleware, injecting X-Request-ID into the response headers."},
+          {"key":"communication_clarity","score":4,"observation":"Clearly differentiated the distinct purposes of debugging logs versus audit logs.","evidence":"Answered the verification question distinguishing high-noise engineering logs from strict compliance audit logs."}
+        ],
+        "strengths": ["Understanding information disclosure risks (stack traces/log leaks)", "Implementing structured logging with correlation IDs", "Designing robust middleware for cross-cutting concerns"],
+        "growth_areas": [],
+        "recommendation": "Consider standardizing the log output format to JSON (using a library like python-json-logger) instead of string formatting, which allows log aggregators like Datadog to index fields automatically.",
+        "public_evidence": [
+          {
+            "artifact": "FastAPI Error Handling & Logging Middleware",
+            "student_action": "Implemented global exception handlers to prevent stack trace leaks and built structured logging middleware with secret redaction.",
+            "technical_detail": "Abstracted get_safe_headers() to sanitize request objects in both middleware and exception handlers. Returned standardized JSON envelopes (code, message, request_id) for 4xx and 5xx errors.",
+            "proof": "Regression test output proving a 500 crash returns an INTERNAL_SERVER_ERROR JSON envelope while logging '***REDACTED***' for the API key instead of plaintext.",
+            "ability": "Observability & Defensive Programming",
+            "reviewer_value": "Demonstrates the candidate writes defensive code that protects sensitive data from being spilled into telemetry platforms and provides the exact correlation IDs needed for on-call incident response.",
+            "confidence": "demonstrated"
+          }
+        ],
+        "student_knowledge": {
+          "terminology_gaps": [],
+          "concepts_demonstrated": [{"concept":"Secret Redaction in Logs","evidence":"Patched the global exception handler to use get_safe_headers()."}],
+          "teaching_approaches": [{"concept":"Logging Leaks","approach":"example","detail":"Injected a bug where the exception handler dumped raw headers, bypassing the middleware's redaction logic.","effective":true}],
+          "effective_level": "intermediate",
+          "learning_style_signals": ["Benefits strongly from tracing the flow of an unhandled request through the framework's lifecycle."],
+          "confidence_level": "high"
+        }
+      }
+    }
+  ]
+}

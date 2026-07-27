@@ -1,0 +1,5 @@
+{
+  "create_link_per_min": 30,
+  "redirect_per_min": 120,
+  "analytics_per_min": 60
+}
