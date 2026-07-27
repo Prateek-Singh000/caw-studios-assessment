@@ -6,35 +6,35 @@
       "step": "reflect",
       "event_type": "module_evaluation",
       "data": {
-        "narrative": "The student successfully implemented a robust API key authentication system and scoped rate-limiting to protect admin endpoints. They demonstrated a clear understanding of the critical distinction between AuthN and AuthZ by intentionally injecting and then patching an Insecure Direct Object Reference (IDOR) vulnerability.",
-        "overall": 4,
+        "narrative": "The student successfully authored and restructured a blameless timeline-based postmortem, demonstrating mastery over systemic root-cause analysis and actionable, system-level remediation items.",
+        "overall": 5,
         "dimension_scores": [
-          {"key":"tradeoff_reasoning","score":4,"observation":"Correctly identified that an internal machine-to-machine service favors API Keys over JWTs for simplicity and instant revocation.","evidence":"Chose API Keys because we are building an internal service rather than a multi-tenant user-facing product."},
-          {"key":"debugging_methodology","score":4,"observation":"Used scripted, reproducible cURL commands to prove both the existence and the resolution of the IDOR bug.","evidence":"Wrote a bash script hitting the same endpoint with two different API keys to prove data leakage, then patched it and re-ran to prove 404 enforcement."},
-          {"key":"security_awareness","score":5,"observation":"Deeply understood IDOR and the necessity of not just checking identity, but scoping resource access to that identity. Also recognized the danger of hardcoded secrets.","evidence":"Implemented link['principal_id'] != principal check and moved API_KEYS to an os.getenv call."},
-          {"key":"production_thinking","score":4,"observation":"Implemented slowapi rate limiting directly aligned with a documented threat model matrix.","evidence":"Added @limiter.limit('30/minute') to prevent database exhaustion."},
-          {"key":"communication_clarity","score":4,"observation":"Clearly differentiated Authentication vs Authorization and explained the business need for a public redirect endpoint.","evidence":"Answered the conceptual questions in the VERIFY step clearly and concisely."}
+          {"key":"review_quality","score":5,"observation":"Identified 15+ instances of toxic personal blame in a flawed postmortem.","evidence":"Flagged specific judgmental phrasing and individual finger-pointing ('John Chen', 'Maria Santos')."},
+          {"key":"writing_clarity","score":5,"observation":"Wrote a concise, scannable blameless postmortem for the OrderProcessor incident.","evidence":"Structured the timeline clearly with exact UTC timestamps and formatted action items."},
+          {"key":"audience_awareness","score":5,"observation":"Framed the postmortem for cross-functional readers and incoming engineers.","evidence":"Explained technical root causes without relying on internal tribal knowledge or personal fault."},
+          {"key":"structure_quality","score":5,"observation":"Implemented a rigorous timeline-based postmortem structure.","evidence":"Included Summary, Timeline, Root Causes, Contributing Factors, Action Items, and Lessons Learned."},
+          {"key":"actionability","score":5,"observation":"Replaced all 'be more careful' wishes with concrete system changes.","evidence":"Specified role-based owners, exact deadlines, and unambiguous definitions of done for every action item."}
         ],
-        "strengths": ["Understanding and exploiting/patching IDOR vulnerabilities", "Scripting reproducible regression tests", "Pragmatic tradeoff selection (API keys over JWTs for internal APIs)"],
+        "strengths": ["Blameless technical framing", "Systemic root-cause identification", "Actionable remediation design"],
         "growth_areas": [],
-        "recommendation": "Next time you implement an API Key system, consider adding a hashed storage requirement in the database (rather than env vars) so keys can be dynamically rotated and audited without restarting the service.",
+        "recommendation": "Continue applying blameless incident analysis principles to all future production debugging and team retrospectives.",
         "public_evidence": [
           {
-            "artifact": "FastAPI AuthZ & IDOR Patch",
-            "student_action": "Implemented API Key authentication and patched an Insecure Direct Object Reference (IDOR) bug to prevent cross-tenant data leakage.",
-            "technical_detail": "Added principal_id checks to GET /api/links/{short_code} and implemented slowapi rate-limiting (30 req/min for writes).",
-            "proof": "main.py regression test confirming User B receives a 404 when attempting to access User A's short_code.",
-            "ability": "API Security & Threat Mitigation",
-            "reviewer_value": "Proves the candidate understands the difference between AuthN and AuthZ, and can write defensive code to prevent common OWASP top 10 vulnerabilities like IDOR.",
+            "artifact": "postmortem-order-processor-blameless.md",
+            "student_action": "Rewrote a blame-heavy incident report into a professional blameless postmortem.",
+            "technical_detail": "Addressed swallowed exceptions (try/except blocks), shallow health checks, and stale deployment rollback scripts.",
+            "proof": "Created postmortem-order-processor-blameless.md with systemic root causes and role-based action items.",
+            "ability": "Blameless Incident Investigation & Technical Writing",
+            "reviewer_value": "Proves the ability to foster engineering psychological safety and turn production failures into permanent architectural safeguards.",
             "confidence": "demonstrated"
           }
         ],
         "student_knowledge": {
           "terminology_gaps": [],
-          "concepts_demonstrated": [{"concept":"AuthN vs AuthZ","evidence":"Patched an endpoint that had AuthN but lacked AuthZ (IDOR)."}],
-          "teaching_approaches": [{"concept":"IDOR Vulnerability","approach":"example","detail":"Injected the bug intentionally so the student could exploit it before fixing it.","effective":true}],
+          "concepts_demonstrated": [{"concept":"Systemic Root Cause","evidence":"Shifted analysis from human error to architectural gaps like swallowed exceptions and shallow health checks."}],
+          "teaching_approaches": [{"concept":"Blameless Culture","approach":"example","detail":"Contrasted personal blame ('John removed the field') with system failures ('Swallowed exceptions and silent failures').","effective":true}],
           "effective_level": "intermediate",
-          "learning_style_signals": ["Demonstrates highest engagement when writing bash scripts to prove/disprove hypotheses."],
+          "learning_style_signals": ["Excels at diagnosing cultural and structural dysfunctions in technical communication."],
           "confidence_level": "high"
         }
       }

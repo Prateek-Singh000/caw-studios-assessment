@@ -1,0 +1,43 @@
+{
+  "nonce": "module-02-complete",
+  "events": [
+    {
+      "module": 2,
+      "step": "reflect",
+      "event_type": "module_evaluation",
+      "data": {
+        "narrative": "The student successfully demonstrated how to transform dense, passive-voice corporate prose into a highly scannable, top-down technical document. They proved a strong understanding of how buried ledes and undefined jargon actively harm incident response and team velocity.",
+        "overall": 5,
+        "dimension_scores": [
+          {"key":"review_quality","score":5,"observation":"Identified multiple specific communication failures in the 'bad' document.","evidence":"Categorized 'a decision has been reached' as passive voice and 'Given these considerations...' as a buried lede."},
+          {"key":"writing_clarity","score":5,"observation":"Reduced word count by 30% while retaining 100% of facts.","evidence":"Replaced 'It is expected that this migration will result in...' with 'This will eliminate 15 unnecessary aggregation endpoints.'"},
+          {"key":"audience_awareness","score":5,"observation":"Tailored the document for a new hire (Priya) by defining acronyms.","evidence":"Defined SRE as '(Site Reliability Engineering) team' and SDK as '(Software Development Kit)'."},
+          {"key":"structure_quality","score":5,"observation":"Implemented a strict Top-Down structure.","evidence":"The opening sentence states the decision immediately: 'The backend team is migrating our public-facing API from REST to GraphQL...'"},
+          {"key":"actionability","score":5,"observation":"Assigned clear owners and deadlines to next steps.","evidence":"Wrote 'The backend team will monitor query performance daily' instead of 'These risks will be monitored'."}
+        ],
+        "strengths": ["Active voice mastery", "Top-down structural discipline", "Jargon translation"],
+        "growth_areas": [],
+        "recommendation": "Apply this same top-down structure in the upcoming Design Documents (RFCs) module.",
+        "public_evidence": [
+          {
+            "artifact": "technical-explanation-fixed.md",
+            "student_action": "Rewrote a 350-word dense technical memo into a 240-word scannable document.",
+            "technical_detail": "Removed passive voice and defined all acronyms (FE, SRE, SDK) inline.",
+            "proof": "Opening sentence: 'The backend team is migrating our public-facing API from REST to GraphQL to eliminate redundant endpoints...'",
+            "ability": "Technical Writing Fundamentals",
+            "reviewer_value": "Demonstrates the ability to write high-signal, low-noise documentation that respects the time of executives and engineers alike.",
+            "confidence": "demonstrated"
+          }
+        ],
+        "student_knowledge": {
+          "terminology_gaps": [],
+          "concepts_demonstrated": [{"concept":"The Lede","evidence":"Placed the core decision in the very first sentence without 'throat-clearing' filler."}],
+          "teaching_approaches": [{"concept":"Active Voice","approach":"example","detail":"Contrasted 'risks will be monitored' with 'The backend team will track...' to show accountability.","effective":true}],
+          "effective_level": "intermediate",
+          "learning_style_signals": ["Demonstrates strong editing skills when given a 'bad' example to deconstruct."],
+          "confidence_level": "high"
+        }
+      }
+    }
+  ]
+}
